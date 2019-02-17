@@ -34,3 +34,53 @@ class Net(nn.Module):
 
 net = Net()
 print(net)
+
+params = list(net.parameters())
+# print(params)
+print(len(params))
+print(params[0].size())  # conv1's .weight
+
+input = torch.randn(1, 1, 32, 32)  # batch =1, # of channel = 1, width = 32, height = 32
+out = net(input)
+print(out)
+
+net.zero_grad()  # clear all params' grad buffer to zero
+out.backward(torch.randn(1, 10))
+
+################################################################
+
+output = net(input)
+target = torch.randn(10)  # a dummy target, for e.g.
+target = target.view(1, -1)  # make it the same shape as output
+criterion = nn.MSELoss()
+
+loss = criterion(output, target)
+print(loss)
+
+################################################################
+
+print(loss.grad_fn)
+print(loss.grad_fn.next_functions[0][0])  # Linear
+print(loss.grad_fn.next_functions[0][0].next_functions[0][0])  # ReLU
+
+################################################################
+
+net.zero_grad()
+print('cov1.bias.grad before backward')
+print(net.conv1.bias.grad)
+
+loss.backward()
+
+print('conv1.bias.grad after backward')
+print(net.conv1.bias.grad)
+
+import torch.optim as optim
+
+optimizer = optim.SGD(net.parameters(), lr=0.01)
+
+# in your training loop:
+optimizer.zero_grad()
+output = net(input)
+loss = criterion(output, target)
+loss.backward()
+optimizer.step()
