@@ -1,2 +1,7 @@
 # Pytorch-SD
-Implementing system dynamics structures on Pytorch
+
+System dynamics and PyTorch
+
+##Why this Repo?
+
+This repo is set up as a part of a 
