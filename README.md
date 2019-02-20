@@ -2,7 +2,7 @@
 
 System dynamics and PyTorch
 
-##Why this Repo?
+## Why this Repo?
 
 This repo is set up as a part of the Machine Conceptualization project, its aim is to explore how deep-learning frameworks can be incorporated with system dynamics models.
 
@@ -13,7 +13,7 @@ The incorporation mentioned above, could happen on multiple levels.
 
 This repo starts by trying to apply neural networks in model optimization (finding parameter values).
 
-##SD Model in Neural Network
+## SD Model in Neural Network
 The execution of SD model could be seen as an iterative computation:
 1) The model (connections and parameters) is defined.
 2) Initial values for stocks and variables (here we differentiate non-stock variables from parameters) are specified.
@@ -29,9 +29,9 @@ __output = f(input, parameters)__
 
 PyTorch has built-in nn.Linear() function, which can be used in replicating operations in SD models.
 
-##Finding Parameter Value by Training
+## Finding Parameter Value by Training
 
-####Method
+#### Method
 
 Furthermore, we have the following analogy:
 
@@ -41,7 +41,7 @@ Furthermore, we have the following analogy:
 
 Inspired by but different from the method used in Abdelbari and Shafi (2017), historical data of stock and flow are used as input and output in training. One iteration in SD model can yield a new set of value(s) for flow(s), which in this training process is the output and then used to calculate the loss against the groud truth (read value for a flow). Based on this loss, through back-propagate function, parameters are subsequently adjusted. Such an adjustment, although subject to hugh stochasticity, will likely be converging to a state where the loss is reduced to a very small value. By this time, the parameters in the network, might be the values we are looking for.
 
-####An Example
+#### An Example
 In a first-order negative feedback loop structure, two parameters are of key importance: the goal and the adjustment time. In this example, these 2 parameters in a first order feedback loop structure are tuned based on time-series data.
 
 The time-series data is obtained through a simulation of such a first-order negative feedback loop model (with goal-seeking behavior) using Stella. They are used here as ground truth.
@@ -62,7 +62,7 @@ The learned 'goal' is 1.9785 * 10 = 19.785, close to 20, which is the parameter 
 
 The learned 'adjustment time' is 0.1985, close to 0.2 or 1/5, of which 5 is the parameter 'adjustment time' in the SD model.
 
-##Guidance to Use
+## Guidance to Use
 
 Requirements:
 
@@ -79,8 +79,8 @@ Run the main script:
 
 `python find_parameter_value.py`
 
-##Acknowledgement
+## Acknowledgement
 The idea of this attempt emerged as a by-product in a discussion with Dr. D.Arango. Tusen takk! (Although the 'main idea' is still on its way to realization)
 
-##Reference
+## Reference
 1) Abdelbari, H., & Shafi, K. (2017). A computational Intelligence‐based Method to ‘Learn’Causal Loop Diagram‐like Structures from Observed Data. System Dynamics Review, 33(1), 3-33.
